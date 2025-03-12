@@ -4,10 +4,15 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Version>1.0.0</Version>
+        <Authors>Christian Nytra</Authors>
+        <Company>Nytraverse Solutions</Company>
+        <Description>Core logic and components for the Nytraverse Game Framework.</Description>
+        <PackageId>Nytraverse.GameFramework.Core</PackageId>
     </PropertyGroup>
-
     <ItemGroup>
-      <Folder Include="UI\" />
+        <Folder Include="UI\"/>
     </ItemGroup>
 
 </Project>

@@ -25,6 +25,29 @@ public abstract partial class BaseTooltip : PanelContainer
         SetPositionByNode(objectContainer);
     }
 
+    public new virtual void Hide() => Position = new Vector2(-900, -900);
+
+    private void SetDisplayedDataByItem(ITooltipObject tooltipObject)
+    {
+        if(ObjectNameLabel is null || ObjectDescriptionLabel is null)
+            return;
+
+        ObjectNameLabel.Text = ObjectNameLabel.Text.Replace("ItemName", $"[u]{tooltipObject.TooltipName}[/u]");
+
+        ObjectDescriptionLabel.Text = $"{System.Environment.NewLine}" +
+                                      $"{tooltipObject.GetTooltipDescription()}{System.Environment.NewLine}" +
+                                      $"{System.Environment.NewLine}";
+    }
+
+    private void SetPositionByNode(ITooltipObjectContainer container)
+    {
+        var xPosition = container.Position.X - Size.X + 10;
+
+        if (xPosition <= 0) xPosition = container.Position.X + container.Size.X + 20;
+
+        Position = new Vector2(xPosition, 27);
+    }
+
     // ReSharper disable once InconsistentNaming
     private void FindUIComponents()
     {
@@ -36,28 +59,5 @@ public abstract partial class BaseTooltip : PanelContainer
         Keywords               ??= Container.GetNode<RichTextLabel>("Keywords");
         ObjectDescriptionLabel ??= Container.GetNode<RichTextLabel>("ObjectDescriptionLabel");
         ObjectNameLabel        ??= Container.GetNode<RichTextLabel>("ObjectNameLabel");
-    }
-
-    public new virtual void Hide() => Position = new Vector2(-900, -900);
-
-    public void SetDisplayedDataByItem(ITooltipObject @object)
-    {
-        if(ObjectNameLabel is null || ObjectDescriptionLabel is null)
-            return;
-
-        ObjectNameLabel.Text = ObjectNameLabel.Text.Replace("ItemName", $"[u]{@object.TooltipName}[/u]");
-
-        ObjectDescriptionLabel.Text = $"{System.Environment.NewLine}" +
-                                      $"{@object.GetTooltipDescription()}{System.Environment.NewLine}" +
-                                      $"{System.Environment.NewLine}";
-    }
-
-    public void SetPositionByNode(ITooltipObjectContainer container)
-    {
-        var xPosition = container.Position.X - Size.X + 10;
-
-        if (xPosition <= 0) xPosition = container.Position.X + container.Size.X + 20;
-
-        Position = new Vector2(xPosition, 27);
     }
 }
