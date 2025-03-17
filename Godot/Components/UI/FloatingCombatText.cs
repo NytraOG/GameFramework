@@ -28,6 +28,15 @@ public abstract class FloatingCombatText : Node2D
         Display = GetLabelComponent();
     }
 
+    public void ShowInTree()
+    {
+        Show();
+
+        GetTree()
+               .CurrentScene
+               .AddChild(this);
+    }
+
     protected abstract Label GetLabelComponent();
 
     public void SetFontSize(int size) => Display?.AddThemeFontSizeOverride(FontSize, size);
