@@ -11,7 +11,7 @@ public abstract class FloatingCombatText : Node2D
     public float DriftVelocity { get; set; } = 0.3f;
 
     [Export]
-    public float ElapsedMaximumSeconds { get; set; } = 2;
+    public float VisibilityTimeSeconds { get; set; } = 2;
 
     [Export]
     public float FadeDelaySeconds { get; set; } = 1;
@@ -50,7 +50,7 @@ public abstract class FloatingCombatText : Node2D
         if (Elapsed >= FadeDelaySeconds)
             Modulate = new Color(Modulate, 1 - ((float)Elapsed - 1));
 
-        if (Elapsed >= ElapsedMaximumSeconds)
+        if (Elapsed >= VisibilityTimeSeconds)
             QueueFree();
 
         Position += new Vector2(0, -DriftVelocity);
